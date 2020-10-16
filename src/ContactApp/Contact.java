@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class Contact {
     private String contactName;
-    private String contactNumber;
+    private int contactNumber;
 
-    public Contact(String name, String number){
+    public Contact(String name, int number){
         this.contactName = name;
         this.contactNumber = number;
     }
@@ -21,7 +22,7 @@ public class Contact {
         return contactName;
     }
 
-    public String getContactNumber(){
+    public int getContactNumber(){
         return contactNumber;
     }
 
@@ -29,7 +30,7 @@ public class Contact {
         this.contactName = name;
     }
 
-    public void setContactNumber(String number){
+    public void setContactNumber(int number){
         this.contactNumber = number;
     }
 
@@ -52,13 +53,16 @@ public class Contact {
         System.out.println();
         List<String> fileContents = Files.readAllLines(filePath);
         for(int i = 0; i < fileContents.size(); i++){
-            System.out.printf("%d: %s\n", i + 1, fileContents.get(i));
+            System.out.printf("%s%n", fileContents.get(i));
         }
     }
 
 
     public static void addContact(){
-        Files.write(dataFilePath, Arrays.asList("cereal", "bread"), StandardOpenOption.APPEND);
+        Input entry = new Input();
+        System.out.println("enterYour new contacts name: ");
+        String name = entry.getString();
+        Files.write(dataFilePath, Arrays.asList(), StandardOpenOption.APPEND);
     }
 
     //Needs modified
@@ -88,7 +92,14 @@ public class Contact {
 
     }
 
-    public static void searchContact(String name){
-        // show requested contact .get()
+    public static void searchContact(){
+        List<String> fileContents = Files.readAllLines(filePath);
+        List<String> modifiedList = new ArrayList<>();
+
+        for(String )
+
     }
+
+
+  
 }
