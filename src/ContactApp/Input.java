@@ -3,23 +3,19 @@ package ContactApp;
 import java.util.Scanner;
 
 public class Input {
-    private static Scanner scanner;
+    private Scanner scanner;
 
     public Input (){
         scanner = new Scanner(System.in);
     }
 
-    public static Scanner getScanner() {
-        return scanner;
-    }
-
-    public String getString(String prompt){
+    public static String getString(String prompt){
         System.out.println(prompt);
         return scanner.nextLine();
     }
 
-    public boolean yesNo(){
-        System.out.println("Would you like to continue? [y/n]");
+    public static boolean yesNo(String prompt){
+        System.out.println(prompt);
         String input = scanner.nextLine();
         return input.trim().equalsIgnoreCase("y") || input.trim().equalsIgnoreCase("yes");
     }
@@ -31,7 +27,7 @@ public class Input {
         try {
             userInput = scanner.nextLine();
             input = Integer.valueOf(userInput);
-            if (input >= max || input <= min) {
+            if (input > max || input < min) {
                 System.out.println("That is not a valid entry. \n");
                 prompt = "Please enter 1, 2, 3, 4, or 5";
                 input = getInt(min, max, prompt);
