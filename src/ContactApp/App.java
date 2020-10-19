@@ -8,24 +8,17 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class App {
     
     public static void main(String[] args) throws Exception {
-        Input input = new Input();
         String directoryName = "data";
         String fileName = "contacts.txt";
         
         
         try{
-            Path dataFilePath = Contact.createDirectoryAndFile(directoryName, fileName);
-            List<String> contacts = Arrays.asList("Jack Blank : 2105678923", "Jane Doe : 7898902", "Sam Space : 2105818123");
-            Files.write(dataFilePath, contacts);
             userInterface();
-            int userChoice = Input.getInt(1, 5, "Enter an option (1, 2, 3, 4 or 5):");
           
     
 
@@ -40,24 +33,25 @@ public class App {
     }
  
 
-    public static void userInterface(){
+    public static void userInterface() throws IOException {
         System.out.println("1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
                 "4. Delete an existing contact.\n" +
                 "5. Exit.\n");
+        System.out.println();
+        displayUserSelection();
     }
 
-    public static void displayUserSelection() {
+    public static void displayUserSelection() throws IOException {
         Input input = new Input();
-        int option = input.getInt(min, max, prompt);
+        int option = input.getInt(1, 5, "Enter an option (1, 2, 3, 4 or 5):");
         switch(option) {
             case 1:
                 Contact.printFileContents();
                 break;
             case 2:
-           
-               
+                Contact.addContact();
                 break;
             case 3:
                 Contact.searchContact();
@@ -71,15 +65,14 @@ public class App {
                 break;
         }
 
-        boolean confirm = Input.yesNo("Would you like to select another option? [y/n]");
+        boolean confirm = input.yesNo("Would you like to select another option? [y/n]");
         if(confirm) {
             userInterface();
-            int userChoice = Input.getInt(1,5, "Enter an option (1, 2, 3, 4 or 5):");
-            displayUserSelection(userChoice);
+            displayUserSelection();
         }else{
             System.out.println("Goodbye");
             System.exit(0);
         }
     }
- 
+    
 }
