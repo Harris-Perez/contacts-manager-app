@@ -13,6 +13,7 @@ import java.util.List;
 public class Contact {
     private String contactName;
     private int contactNumber;
+    private static Path dataFilePath = Paths.get("data", "contacts.txt");
 
     public Contact(String name, int number){
         this.contactName = name;
@@ -36,12 +37,9 @@ public class Contact {
 
 
 
-    public static Path createDirectoryAndFile(String directoryName, String fileName) throws IOException {
-        Path directoryPath = Paths.get(directoryName);
-        Path dataFilePath = Paths.get(directoryName, fileName);
-
-        if(Files.notExists(directoryPath)){
-            Files.createDirectories(directoryPath);
+    public Path createDirectoryAndFile() throws IOException {
+        if(Files.notExists(dataFilePath)){
+            Files.createDirectories(dataFilePath);
         }
         if(!Files.exists(dataFilePath)){
             Files.createFile(dataFilePath);
@@ -49,29 +47,36 @@ public class Contact {
         return dataFilePath;
     }
 
-    public static void printFileContents(Path filePath) throws IOException {
+    public static void printFileContents() throws IOException {
+        List<String> fileContents = Files.readAllLines(dataFilePath);
         System.out.println();
-        List<String> fileContents = Files.readAllLines(filePath);
+        System.out.printf("%-20s | %-20s%n", "Name", "Phone Number");
+        System.out.println("-------------------------------------------");
         for(int i = 0; i < fileContents.size(); i++){
             System.out.printf("%s%n", fileContents.get(i));
         }
     }
 
 
-    public static void addContact(){
+    public static void addContact() throws IOException{
         Input entry = new Input();
-        System.out.println("enterYour new contacts name: ");
+        System.out.println("Enter your new contacts name: ");
         String name = entry.getString();
-        Files.write(dataFilePath, Arrays.asList(), StandardOpenOption.APPEND);
+        System.out.println();
+        System.out.println("Enter new contact's phone number:");
+        String number = entry.getString();
+        Files.write(dataFilePath, Arrays.asList(String.format("%-20s | %-20s", name, number)), StandardOpenOption.APPEND);
+        System.out.print("Contact Added");
     }
 
     //Needs modified
-    public static void updateContact(Path filePath, String oldValue, String newValue) throws IOException {
+    public void updateContact(Path filePath, String oldValue, String newValue) throws IOException {
         List<String> fileContents = Files.readAllLines(filePath);
         List<String> modifiedList = new ArrayList<>();
         for (String item: fileContents){
             if (item.equals(oldValue)){
                 modifiedList.add(newValue);
+
             } else {
                 modifiedList.add(item);
             }
@@ -80,23 +85,35 @@ public class Contact {
     }
 
     //Needs modified
-    public static void deleteContact(Path filePath, String deletedValue) throws IOException {
-        List<String> fileContents = Files.readAllLines(filePath);
+    public void deleteContact() throws IOException {
+        Input entry = new Input();
+        System.out.println("Which entry would you like to delete?");
+        entry.getString();
+        List<String> fileContents = Files.readAllLines(dataFilePath);
         List<String> modifiedList = new ArrayList<>();
         for (String item: fileContents){
-            if(!item.equals(deletedValue)){
+            if(!item.equals(entry)){
                 modifiedList.add(item);
             }
         }
-        Files.write(filePath, modifiedList);
+        Files.write(dataFilePath, modifiedList);
 
     }
 
-    public static void searchContact(){
-        List<String> fileContents = Files.readAllLines(filePath);
-        List<String> modifiedList = new ArrayList<>();
-
-        for(String )
+    public static void searchContact() throws IOException{
+        Input entry = new Input();
+        System.out.println("Search for contact:");
+        String search = entry.getString();
+        List<String> fileContents = Files.readAllLines(dataFilePath);
+        // List<String> modifiedList = new ArrayList<>();
+        System.out.println();
+        for(String contact: fileContents) {
+            if(contact.contains(search)) {
+                System.out.println(contact);
+            }else {
+                System.out.println("No match found");
+            }
+        }
 
     }
 
