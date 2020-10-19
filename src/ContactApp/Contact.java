@@ -105,15 +105,14 @@ public class Contact {
         System.out.println("Search for contact:");
         String search = entry.getString();
         List<String> fileContents = Files.readAllLines(dataFilePath);
-        // List<String> modifiedList = new ArrayList<>();
+        List<String> modifiedList = new ArrayList<>();
         System.out.println();
         for(String contact: fileContents) {
-            if(contact.contains(search)) {
-                System.out.println(contact);
-            }else {
-                System.out.println("No match found");
+            if(contact.equals(search)) {
+                modifiedList.add(contact);
             }
         }
+        Files.write(dataFilePath, modifiedList);
 
     }
 
