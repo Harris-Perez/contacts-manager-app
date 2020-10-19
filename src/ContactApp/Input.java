@@ -1,26 +1,29 @@
 package ContactApp;
-
 import java.util.Scanner;
 
 public class Input {
     private Scanner scanner;
 
-    public Input (){
+    public Input() {
         scanner = new Scanner(System.in);
     }
 
-    public static String getString(String prompt){
+    public String getString(String prompt) {
         System.out.println(prompt);
         return scanner.nextLine();
     }
 
-    public static boolean yesNo(String prompt){
+    public String getString() {
+        return scanner.nextLine();
+    }
+    
+    public boolean yesNo(String prompt) {
         System.out.println(prompt);
         String input = scanner.nextLine();
         return input.trim().equalsIgnoreCase("y") || input.trim().equalsIgnoreCase("yes");
     }
 
-    public static int getInt(int min, int max, String prompt){
+    public int getInt(int min, int max, String prompt) {
         System.out.println(prompt);
         String userInput;
         int input;
