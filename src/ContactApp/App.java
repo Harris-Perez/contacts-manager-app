@@ -1,22 +1,10 @@
 package ContactApp;
-
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class App {
     
     public static void main(String[] args) throws Exception {
-        String directoryName = "data";
-        String fileName = "contacts.txt";
-        
-        
         try{
             userInterface();
           
@@ -34,6 +22,7 @@ public class App {
  
 
     public static void userInterface() throws IOException {
+        System.out.println();
         System.out.println("1. View contacts.\n" +
                 "2. Add a new contact.\n" +
                 "3. Search a contact by name.\n" +
@@ -60,6 +49,7 @@ public class App {
                 Contact.deleteContact();
                 break;
             case 5:
+                System.out.println();
                 System.out.println("Goodbye");
                 System.exit(0);
                 break;
