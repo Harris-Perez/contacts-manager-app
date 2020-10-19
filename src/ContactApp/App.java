@@ -7,19 +7,11 @@ public class App {
     public static void main(String[] args) throws Exception {
         try{
             userInterface();
-          
-    
-
         } catch (IOException ex){
             System.out.println("Cannot create the file.");
             ex.printStackTrace();
         }
-        
-     
-
-
     }
- 
 
     public static void userInterface() throws IOException {
         System.out.println();
